@@ -94,6 +94,11 @@ Assistant on HTTPS: turn on **Home Assistant Cloud** (Nabu Casa) or set `externa
 Then **Developer tools → Actions → `script.show_dashboard_on_tv`** puts the dashboard on the TV.
 Back on the remote returns to what was playing.
 
+The Samsung itself (Tizen) has no Chromecast built in, so it can't receive the cast. Cast to a Google TV
+Streamer on its HDMI instead (`../tv/samsung.md`). Add the Samsung too, for power, volume and input
+control: **Samsung Smart TV** integration → host = the TV's IP → accept **Allow** on the TV. Name it
+`media_player.samsung_tv`.
+
 ## 7. Check
 
 - Developer tools → YAML → **Check configuration** passes.

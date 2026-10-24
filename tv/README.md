@@ -1,5 +1,9 @@
 # The TV
 
+> **The living-room TV is a Samsung (Tizen), so start with [`samsung.md`](samsung.md).** The steps
+> below are for an Android TV or Google TV device, such as a Google TV Streamer plugged into the
+> Samsung's HDMI.
+
 Three parts, in order:
 
 1. **Clean it**: [cleanyourtv](https://github.com/Gathin23/cleanyourtv) (in `cleanyourtv/`) turns off the
