@@ -1,0 +1,52 @@
+- id: porch_light_on_person_after_dark
+  alias: Porch light on when someone is at the front door after dark
+  mode: restart
+  triggers:
+    - trigger: state
+      entity_id: binary_sensor.front_door_person_occupancy
+      to: "on"
+  conditions:
+    - condition: state
+      entity_id: sun.sun
+      state: below_horizon
+  actions:
+    - action: light.turn_on
+      target:
+        entity_id: light.porch
+    - wait_for_trigger:
+        - trigger: state
+          entity_id: binary_sensor.front_door_person_occupancy
+          to: "off"
+          for: "00:05:00"
+      timeout: "00:30:00"
+    - action: light.turn_off
+      target:
+        entity_id: light.porch
+
+- id: front_door_left_unlocked
+  alias: Front door left unlocked for 10 minutes
+  triggers:
+    - trigger: state
+      entity_id: lock.front_door
+      to: unlocked
+      for: "00:10:00"
+  actions:
+    # Add the Home Assistant phone app and swap this for notify.mobile_app_<phone> to get a push.
+    - action: persistent_notification.create
+      data:
+        title: Front door
+        message: The front door has been unlocked for 10 minutes.
+        notification_id: front_door_unlocked
+
+- id: front_door_lock_battery_low
+  alias: Yale battery low
+  triggers:
+    - trigger: numeric_state
+      entity_id: sensor.front_door_battery
+      below: 20
+  actions:
+    - action: persistent_notification.create
+      data:
+        title: Front door lock
+        message: "The Yale lock battery is at {{ states('sensor.front_door_battery') }} %."
+        notification_id: front_door_battery

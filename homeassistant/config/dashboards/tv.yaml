@@ -1,0 +1,151 @@
+# The TV dashboard: everything at a glance from the couch, sized for a 1080p screen.
+# Cast it with script.show_dashboard_on_tv (view "home") or script.show_cameras_on_tv (view "cameras").
+# Entity IDs are placeholders: after adding the integrations, rename the entities in
+# Settings → Entities to match, or change them here.
+#
+# The lock tile only shows state here. Locking and unlocking stays on phones (Yale app or the
+# Home Assistant app), never on the TV.
+
+title: 41 Blythe
+views:
+  - title: Home
+    path: home
+    icon: mdi:home
+    type: sections
+    max_columns: 4
+    sections:
+      - type: grid
+        cards:
+          - type: heading
+            heading: Front door
+            icon: mdi:door
+          - type: tile
+            entity: lock.front_door
+            name: Yale lock
+            vertical: false
+            tap_action:
+              action: more-info
+            icon_tap_action:
+              action: none
+            grid_options:
+              columns: 12
+          - type: tile
+            entity: sensor.front_door_battery
+            name: Lock battery
+            grid_options:
+              columns: 6
+          - type: tile
+            entity: binary_sensor.front_door_person_occupancy
+            name: Person at door
+            grid_options:
+              columns: 6
+          - type: picture-entity
+            entity: camera.front_door
+            camera_view: live
+            show_name: false
+            show_state: false
+            grid_options:
+              columns: 12
+
+      - type: grid
+        cards:
+          - type: heading
+            heading: Lights
+            icon: mdi:lightbulb-group
+          - type: tile
+            entity: light.living_room
+            features:
+              - type: light-brightness
+            grid_options:
+              columns: 12
+          - type: tile
+            entity: light.kitchen
+            features:
+              - type: light-brightness
+            grid_options:
+              columns: 12
+          - type: tile
+            entity: light.dining_room
+            grid_options:
+              columns: 6
+          - type: tile
+            entity: light.hallway
+            grid_options:
+              columns: 6
+          - type: tile
+            entity: light.porch
+            grid_options:
+              columns: 6
+          - type: tile
+            entity: light.bedroom
+            grid_options:
+              columns: 6
+
+      - type: grid
+        cards:
+          - type: heading
+            heading: Scenes
+            icon: mdi:palette
+          - type: tile
+            entity: scene.movie_time
+            name: Movie time
+            grid_options:
+              columns: 6
+          - type: tile
+            entity: scene.all_off
+            name: All off
+            grid_options:
+              columns: 6
+
+      - type: grid
+        cards:
+          - type: heading
+            heading: Outside
+            icon: mdi:cctv
+          - type: picture-entity
+            entity: camera.driveway
+            camera_view: auto
+            show_state: false
+            grid_options:
+              columns: 12
+          - type: picture-entity
+            entity: camera.backyard
+            camera_view: auto
+            show_state: false
+            grid_options:
+              columns: 12
+
+  - title: Cameras
+    path: cameras
+    icon: mdi:cctv
+    type: sections
+    max_columns: 2
+    sections:
+      - type: grid
+        cards:
+          - type: picture-entity
+            entity: camera.front_door
+            camera_view: live
+            show_state: false
+            grid_options:
+              columns: 12
+          - type: picture-entity
+            entity: camera.driveway
+            camera_view: live
+            show_state: false
+            grid_options:
+              columns: 12
+      - type: grid
+        cards:
+          - type: picture-entity
+            entity: camera.backyard
+            camera_view: live
+            show_state: false
+            grid_options:
+              columns: 12
+          - type: picture-entity
+            entity: camera.side_yard
+            camera_view: live
+            show_state: false
+            grid_options:
+              columns: 12

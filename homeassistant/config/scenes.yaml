@@ -1,0 +1,15 @@
+- id: movie_time
+  name: Movie time
+  entities:
+    light.living_room:
+      state: "on"
+      brightness_pct: 15
+    light.kitchen: "off"
+
+- id: all_off
+  name: All lights off
+  entities:
+    light.living_room: "off"
+    light.kitchen: "off"
+    light.dining_room: "off"
+    light.hallway: "off"

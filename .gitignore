@@ -1,0 +1,26 @@
+# Secrets: copy the *.example* files and fill in the copies
+.env
+secrets.yaml
+*.secret.json
+tv/backup/
+backup/
+shots/
+work/
+
+# Home Assistant runtime state
+homeassistant/config/.storage/
+homeassistant/config/.cloud/
+homeassistant/config/deps/
+homeassistant/config/tts/
+homeassistant/config/*.db*
+homeassistant/config/*.log*
+homeassistant/config/.HA_VERSION
+homeassistant/config/blueprints/
+
+# Frigate and Mosquitto runtime state
+homeassistant/frigate/storage/
+homeassistant/frigate/*.db*
+homeassistant/frigate/model_cache/
+homeassistant/mosquitto/data/
+homeassistant/mosquitto/log/
+homeassistant/mosquitto/passwd

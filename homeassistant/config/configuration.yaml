@@ -1,0 +1,25 @@
+# Home Assistant for 41 Blythe.
+# Lutron, Yale, Google Cast, MQTT and Frigate are added in the UI (Settings → Devices & services),
+# not here: SETUP.md has the steps. This file holds what is kept in git: the TV dashboard,
+# automations and scripts.
+
+default_config:
+
+homeassistant:
+  name: 41 Blythe
+  # Needed to cast the dashboard to the TV (Cast loads it over HTTPS). Nabu Casa gives one:
+  # Settings → Home Assistant Cloud. Or set your own:
+  # external_url: !secret external_url
+
+lovelace:
+  dashboards:
+    dashboard-tv:
+      mode: yaml
+      filename: dashboards/tv.yaml
+      title: TV
+      icon: mdi:television
+      show_in_sidebar: true
+
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml

@@ -1,0 +1,3 @@
+[submodule "tv/cleanyourtv"]
+	path = tv/cleanyourtv
+	url = https://github.com/Gathin23/cleanyourtv

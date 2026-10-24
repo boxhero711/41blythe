@@ -1,0 +1,139 @@
+# Frigate: Lorex cameras through the NVR, recording and person/car detection.
+# {FRIGATE_*} values come from the environment (homeassistant/.env, or the add-on's options on HA OS).
+#
+# Lorex NVRs (Dahua-based, most models since 2016) stream per channel:
+#   main stream  rtsp://USER:PASS@NVR:554/cam/realmonitor?channel=N&subtype=0
+#   sub stream   rtsp://USER:PASS@NVR:554/cam/realmonitor?channel=N&subtype=1
+# Some older Lorex DVRs use rtsp://USER:PASS@NVR:554/ch01/0 (main) and /ch01/1 (sub) instead.
+# Test one in VLC (Media → Open Network Stream) before starting Frigate.
+#
+# Rename the cameras to match the house; the names become Home Assistant entities
+# (camera.front_door, binary_sensor.front_door_person_occupancy, ...) used by the dashboard.
+
+mqtt:
+  host: mosquitto          # on HA OS with the Mosquitto add-on: core-mosquitto
+  port: 1883
+  user: "{FRIGATE_MQTT_USER}"
+  password: "{FRIGATE_MQTT_PASSWORD}"
+
+# One connection per stream to the NVR; Frigate, Home Assistant and the TV all read from go2rtc.
+go2rtc:
+  streams:
+    front_door:
+      - "rtsp://{FRIGATE_NVR_USER}:{FRIGATE_NVR_PASSWORD}@{FRIGATE_NVR_HOST}:554/cam/realmonitor?channel=1&subtype=0"
+    front_door_sub:
+      - "rtsp://{FRIGATE_NVR_USER}:{FRIGATE_NVR_PASSWORD}@{FRIGATE_NVR_HOST}:554/cam/realmonitor?channel=1&subtype=1"
+    driveway:
+      - "rtsp://{FRIGATE_NVR_USER}:{FRIGATE_NVR_PASSWORD}@{FRIGATE_NVR_HOST}:554/cam/realmonitor?channel=2&subtype=0"
+    driveway_sub:
+      - "rtsp://{FRIGATE_NVR_USER}:{FRIGATE_NVR_PASSWORD}@{FRIGATE_NVR_HOST}:554/cam/realmonitor?channel=2&subtype=1"
+    backyard:
+      - "rtsp://{FRIGATE_NVR_USER}:{FRIGATE_NVR_PASSWORD}@{FRIGATE_NVR_HOST}:554/cam/realmonitor?channel=3&subtype=0"
+    backyard_sub:
+      - "rtsp://{FRIGATE_NVR_USER}:{FRIGATE_NVR_PASSWORD}@{FRIGATE_NVR_HOST}:554/cam/realmonitor?channel=3&subtype=1"
+    side_yard:
+      - "rtsp://{FRIGATE_NVR_USER}:{FRIGATE_NVR_PASSWORD}@{FRIGATE_NVR_HOST}:554/cam/realmonitor?channel=4&subtype=0"
+    side_yard_sub:
+      - "rtsp://{FRIGATE_NVR_USER}:{FRIGATE_NVR_PASSWORD}@{FRIGATE_NVR_HOST}:554/cam/realmonitor?channel=4&subtype=1"
+
+# CPU detection works out of the box but is heavy past two cameras.
+# On an Intel mini PC, pass /dev/dri through (docker-compose.yml) and use OpenVINO instead:
+# detectors:
+#   ov:
+#     type: openvino
+#     device: GPU
+# model:
+#   width: 300
+#   height: 300
+#   input_tensor: nhwc
+#   input_pixel_format: bgr
+#   path: /openvino-model/ssdlite_mobilenet_v2.xml
+#   labelmap_path: /openvino-model/coco_91cl_bkgr.txt
+# ffmpeg:
+#   hwaccel_args: preset-vaapi
+
+objects:
+  track: [person, car, dog, cat, package]
+
+record:
+  enabled: true
+  retain:
+    days: 3
+    mode: motion
+  alerts:
+    retain:
+      days: 30
+  detections:
+    retain:
+      days: 14
+
+snapshots:
+  enabled: true
+  retain:
+    default: 14
+
+# Only alerts open a Frigate Glance card on the TV: a person (or a package) is worth interrupting a film,
+# a car on the street is not. Tighten per camera with zones once the views are known.
+review:
+  alerts:
+    labels: [person, package]
+
+cameras:
+  front_door:
+    ffmpeg:
+      inputs:
+        - path: rtsp://127.0.0.1:8554/front_door_sub
+          input_args: preset-rtsp-restream
+          roles: [detect]
+        - path: rtsp://127.0.0.1:8554/front_door
+          input_args: preset-rtsp-restream
+          roles: [record]
+    live:
+      streams:
+        Main: front_door
+        Sub: front_door_sub
+
+  driveway:
+    ffmpeg:
+      inputs:
+        - path: rtsp://127.0.0.1:8554/driveway_sub
+          input_args: preset-rtsp-restream
+          roles: [detect]
+        - path: rtsp://127.0.0.1:8554/driveway
+          input_args: preset-rtsp-restream
+          roles: [record]
+    live:
+      streams:
+        Main: driveway
+        Sub: driveway_sub
+    review:
+      alerts:
+        labels: [person, car]
+
+  backyard:
+    ffmpeg:
+      inputs:
+        - path: rtsp://127.0.0.1:8554/backyard_sub
+          input_args: preset-rtsp-restream
+          roles: [detect]
+        - path: rtsp://127.0.0.1:8554/backyard
+          input_args: preset-rtsp-restream
+          roles: [record]
+    live:
+      streams:
+        Main: backyard
+        Sub: backyard_sub
+
+  side_yard:
+    ffmpeg:
+      inputs:
+        - path: rtsp://127.0.0.1:8554/side_yard_sub
+          input_args: preset-rtsp-restream
+          roles: [detect]
+        - path: rtsp://127.0.0.1:8554/side_yard
+          input_args: preset-rtsp-restream
+          roles: [record]
+    live:
+      streams:
+        Main: side_yard
+        Sub: side_yard_sub

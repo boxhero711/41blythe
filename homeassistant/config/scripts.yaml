@@ -1,0 +1,19 @@
+show_dashboard_on_tv:
+  alias: Show the home dashboard on the TV
+  icon: mdi:television-guide
+  sequence:
+    - action: cast.show_lovelace_view
+      data:
+        entity_id: media_player.living_room_tv
+        dashboard_path: dashboard-tv
+        view_path: home
+
+show_cameras_on_tv:
+  alias: Show the cameras on the TV
+  icon: mdi:cctv
+  sequence:
+    - action: cast.show_lovelace_view
+      data:
+        entity_id: media_player.living_room_tv
+        dashboard_path: dashboard-tv
+        view_path: cameras
