@@ -97,9 +97,10 @@ token packed into the app.
 
 **b. Install Samsung's tools** (once, about 1 GB)
 
-1. Install the [Tizen Studio CLI](https://developer.tizen.org/development/tizen-studio/download)
-   (the "CLI installer"), then in its Package Manager install **Samsung Certificate Extension** and
-   **TV Extensions**. Don't run the graphical and CLI package managers at the same time.
+1. Install [Tizen Studio](https://developer.tizen.org/development/tizen-studio/download) (the full IDE
+   installer: it brings Certificate Manager, which step 3 needs). On an Apple Silicon Mac, macOS offers
+   to install Rosetta the first time; accept. Then open Package Manager (`~/tizen-studio/package-manager`)
+   → Extension SDK → install **Samsung Certificate Extension** and **TV Extensions**.
 2. Connect: `~/tizen-studio/tools/sdb connect 192.168.1.115:26101`, then `sdb devices` shows the TV.
 3. Make a **Samsung** certificate (Certificate Manager → Samsung → TV → sign in with a Samsung account →
    Distributor: **Public**, add the TV's DUID, which the Certificate Manager reads from the connected TV).
@@ -108,16 +109,13 @@ token packed into the app.
 **c. Build and install**
 
 ```bash
-cp app/config.example.js app/config.js     # hub IP, and a Home Assistant long-lived token named "Samsung TV"
-~/tizen-studio/tools/ide/bin/tizen build-web -- "$PWD/app"
-~/tizen-studio/tools/ide/bin/tizen package -t wgt -s blythe -- "$PWD/app/.buildResult"
-~/tizen-studio/tools/ide/bin/tizen install -n BlytheHome.wgt -s 192.168.1.115:26101 -- "$PWD/app/.buildResult"
+cp app/config.example.js app/config.js     # no hub yet? set demo: true to see it with a made-up house
+TV_HOST=192.168.1.115 ./install-app.sh blythe
 ```
 
-The package file name must not contain spaces (Samsung's installer fails silently on them); rename the
-`.wgt` to `BlytheHome.wgt` if needed. The app then appears under Apps; add it to the Home bar with the
-remote (select it → Add to Home). With Autorun Last App on, the TV reopens it at power-on if it was the
-last thing open.
+It connects to the TV, packages the app with your `blythe` certificate, installs it and opens it. The
+app then appears under Apps; add it to the Home bar with the remote (select it → Add to Home). With
+Autorun Last App on, the TV reopens it at power-on if it was the last thing open.
 
 To try it without a TV: put `demo: true` in `config.js` and open `app/index.html` in Chrome at
 1920×1080; arrow keys, Enter and Escape act as the remote.
