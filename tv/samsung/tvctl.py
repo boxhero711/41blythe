@@ -44,7 +44,7 @@ PRIVACY_STEPS = [
     ("Settings → General → Network → Expert Settings → Power On with Mobile",
      "Turn ON, so Home Assistant can switch the TV on."),
     ("Settings → Support → Software Update → Auto Update",
-     "Leave ON: security fixes."),
+     "Leave ON if you can change it. Grayed out is fine: skip it (see README, 'Auto Update grayed out')."),
 ]
 
 
@@ -129,9 +129,14 @@ def cmd_privacy(_args):
     tv = remote()
     print("Pick up the TV remote. For each screen: open it, set it, then press Enter here.\n")
     tv.send_key("KEY_MENU")
-    for i, (where, what) in enumerate(PRIVACY_STEPS, 1):
-        print("%d/%d  %s\n      %s" % (i, len(PRIVACY_STEPS), where, what))
-        input("      Enter when done (Ctrl-C to stop) ")
+    try:
+        for i, (where, what) in enumerate(PRIVACY_STEPS, 1):
+            print("%d/%d  %s\n      %s" % (i, len(PRIVACY_STEPS), where, what))
+            input("      Enter when done (Ctrl-C to stop) ")
+    except (KeyboardInterrupt, EOFError):
+        print("\nStopped. The settings you already changed stay changed.")
+        tv.close()
+        return
     tv.send_key("KEY_HOME")
     tv.close()
     print("Done. Take a photo of anything you want to be able to set back.")

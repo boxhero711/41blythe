@@ -42,6 +42,11 @@ with the remote:
 | General → Network → Expert Settings → **Power On with Mobile** | On: lets Home Assistant switch the TV on |
 | Support → Software Update → **Auto Update** | Leave on: security fixes |
 
+**Auto Update grayed out?** That's fine: nothing needs changing there. Samsung grays it out when the
+TV can't reach its update server, when the Smart Hub Terms & Conditions or Privacy Notice aren't agreed
+(Support → Terms & Policy), or while an update is already downloading. Settings → Support → Software
+Update → **Update Now** checks by hand; do that every few months if Auto Update stays gray.
+
 Leave the Smart Hub terms accepted: declining them switches off the app store and the streaming apps.
 Photograph each screen before changing it, so you can set it back.
 
