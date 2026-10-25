@@ -7,7 +7,7 @@ or IP addresses here; this file is committed. Addresses go in `homeassistant/.en
 
 | Question | Answer | Why it matters |
 |---|---|---|
-| Brand and model (on the back label, or Settings → About) | Samsung QN82Q850TAFXZA, 82" (Q80T-class, 2020) | cleanyourtv has a tested list per model in `tv/cleanyourtv/examples/` |
+| Brand and model (on the back label, or Settings → About) | Samsung QN82Q850TAFXZA, 82" 8K (Q800T family, 2020; API model `20_NIKEM_8K`) | cleanyourtv has a tested list per model in `tv/cleanyourtv/examples/` |
 | OS: Android TV / Google TV, Samsung Tizen, LG webOS, Fire TV, Roku? | Samsung Tizen (2020 firmware): see [`tv/samsung/README.md`](../tv/samsung/README.md) | Debloat + launcher need **Android TV or Google TV**. Fire TV: debloat only. Tizen / webOS / Roku: no cleanyourtv; use an external streamer (Chromecast with Google TV, Shield) on HDMI and clean that instead |
 | Wi-Fi or Ethernet? Anything in the TV's USB ports? | | USB debugging can cut power to USB ports (see `tv/cleanyourtv/PROMPT.md`) |
 | Apps the family uses (Netflix, YouTube, Live TV, ...) | | Kept enabled during the debloat |

@@ -1,6 +1,6 @@
 # The Samsung TV (QN82Q850TAFXZA)
 
-An 82" Samsung from 2020 running **Tizen**. cleanyourtv's Android route (ADB, `pm disable-user`, a new
+An 82" 8K Samsung from 2020 (Q800T family, `20_NIKEM_8K`) running **Tizen**. cleanyourtv's Android route (ADB, `pm disable-user`, a new
 launcher) does not exist here: Tizen has no ADB, no shell, and Samsung Home can't be replaced
 (cleanyourtv's notes: `../cleanyourtv/docs/devices/samsung-tizen.md`). What Tizen *does* offer:
 
