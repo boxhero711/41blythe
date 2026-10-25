@@ -58,8 +58,8 @@ def host():
 def remote(timeout=10):
     try:
         from samsungtvws import SamsungTVWS
-    except ImportError:
-        sys.exit("missing library: venv/bin/pip install -r requirements.txt")
+    except ImportError as e:
+        sys.exit("can't load samsungtvws (%s). Run: venv/bin/pip install -r requirements.txt" % e)
     # 8002 is the TLS port; 2016+ sets hand out a token there once "Allow" is accepted.
     return SamsungTVWS(host(), port=8002, token_file=TOKEN_FILE, timeout=timeout, name=NAME)
 
