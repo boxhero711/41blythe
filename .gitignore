@@ -32,3 +32,5 @@ tv/samsung/app/config.js
 tv/samsung/app/.buildResult/
 *.wgt
 *.p12
+
+__pycache__/
