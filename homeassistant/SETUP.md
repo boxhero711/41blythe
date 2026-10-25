@@ -95,7 +95,7 @@ Then **Developer tools → Actions → `script.show_dashboard_on_tv`** puts the 
 Back on the remote returns to what was playing.
 
 The Samsung itself (Tizen) has no Chromecast built in, so it can't receive the cast. Cast to a Google TV
-Streamer on its HDMI instead (`../tv/samsung.md`). Add the Samsung too, for power, volume and input
+Streamer on its HDMI instead (`../tv/samsung/README.md`). Add the Samsung too, for power, volume and input
 control: **Samsung Smart TV** integration → host = the TV's IP → accept **Allow** on the TV. Name it
 `media_player.samsung_tv`.
 

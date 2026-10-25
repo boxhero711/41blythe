@@ -1,0 +1,18 @@
+# Samsung TV ads and viewing-data domains, for AdGuard Home or Pi-hole (one domain per line, subdomains included).
+# The conservative set: ads, ad targeting and ACR (what's-on-screen reporting). Apps, the app store,
+# software updates and streaming keep working.
+#
+# For more, add the full community list (blocks more telemetry, but can break the Samsung app store,
+# app icons or Smart Hub, and you then unblock what broke):
+#   https://raw.githubusercontent.com/Perflyst/PiHoleBlocklist/master/SmartTV.txt
+
+# Samsung Ads: banners and promoted tiles on the home screen
+samsungads.com
+samsungadhub.com
+samsungyosemite.com
+
+# ACR: Viewing Information Services, reporting what is on screen
+samsungacr.com
+
+# Error-dump uploads
+prderrordumphsm.samsungcloudsolution.com

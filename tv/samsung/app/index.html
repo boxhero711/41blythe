@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=1920, height=1080, user-scalable=no">
+  <title>41 Blythe</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1 id="title">41 Blythe</h1>
+    <div id="status" class="status"></div>
+    <div class="clock"><span id="time"></span><span id="date"></span></div>
+  </header>
+
+  <main>
+    <section class="row top">
+      <div id="door" class="panel door"></div>
+      <div id="cameras" class="panel cameras"></div>
+    </section>
+    <section class="row">
+      <h2>Lights</h2>
+      <div id="lights" class="tiles"></div>
+    </section>
+    <section class="row">
+      <h2>Scenes</h2>
+      <div id="scenes" class="tiles"></div>
+    </section>
+  </main>
+
+  <div id="full" class="full hidden"><img id="full-img" alt=""><div id="full-name"></div></div>
+  <div id="toast" class="toast hidden"></div>
+  <footer>OK switches a light or runs a scene · OK on a camera opens it · Back closes</footer>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

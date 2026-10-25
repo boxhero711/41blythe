@@ -1,6 +1,6 @@
 # The TV
 
-> **The living-room TV is a Samsung (Tizen), so start with [`samsung.md`](samsung.md).** The steps
+> **The living-room TV is a Samsung (Tizen), so start with [`samsung/README.md`](samsung/README.md).** The steps
 > below are for an Android TV or Google TV device, such as a Google TV Streamer plugged into the
 > Samsung's HDMI.
 

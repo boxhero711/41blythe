@@ -1,0 +1,65 @@
+/* 1920x1080, seen from the couch. Written for the 2020 Tizen web engine (Chromium 69):
+   grid gap is fine, flex gap is not. */
+:root {
+  --bg: #0b0d12;
+  --panel: #161a22;
+  --tile: #1e232d;
+  --text: #f2f4f8;
+  --dim: #8a93a6;
+  --on: #ffc94d;
+  --ok: #4fd18b;
+  --warn: #ff8a3d;
+  --focus: #ffffff;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; }
+body { background: var(--bg); color: var(--text); font-family: "SamsungOne", "Helvetica Neue", Arial, sans-serif; }
+
+header { display: flex; align-items: center; height: 120px; padding: 0 72px; }
+h1 { font-size: 52px; font-weight: 600; margin: 0; }
+.status { flex: 1; margin-left: 40px; font-size: 26px; color: var(--warn); }
+.clock { text-align: right; }
+.clock span { display: block; }
+#time { font-size: 56px; font-weight: 300; }
+#date { font-size: 24px; color: var(--dim); }
+
+main { padding: 0 72px; height: 900px; overflow: hidden; }
+.row { margin-bottom: 28px; }
+h2 { font-size: 28px; font-weight: 500; color: var(--dim); margin: 0 0 14px 4px; }
+.top { display: grid; grid-template-columns: 520px 1fr; grid-template-rows: 100%; grid-column-gap: 28px; height: 420px; }
+.panel { background: var(--panel); border-radius: 28px; padding: 28px; height: 100%; overflow: hidden; }
+
+.door .label { font-size: 26px; color: var(--dim); }
+.door .lock { margin: 14px 0 22px; padding: 24px; border-radius: 22px; background: var(--tile); }
+.door .lock .state { font-size: 54px; font-weight: 600; }
+.door .lock.locked .state { color: var(--ok); }
+.door .lock.unlocked .state { color: var(--warn); }
+.door .lock .note { font-size: 22px; color: var(--dim); margin-top: 6px; }
+.door .facts { font-size: 28px; line-height: 1.7; }
+.door .facts b { font-weight: 600; }
+.door .facts .alert { color: var(--warn); }
+
+.cameras { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) minmax(0, 1fr); grid-gap: 16px; padding: 16px; }
+.cam { position: relative; min-height: 0; border-radius: 18px; overflow: hidden; background: #000; }
+.cam img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.cam .name { position: absolute; left: 0; right: 0; bottom: 0; padding: 10px 16px; font-size: 24px;
+  background: linear-gradient(transparent, rgba(0, 0, 0, .8)); }
+
+.tiles { display: grid; grid-template-columns: repeat(6, 1fr); grid-gap: 20px; }
+.tile { background: var(--tile); border-radius: 22px; padding: 22px 24px; height: 128px; }
+.tile .name { font-size: 28px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tile .state { font-size: 24px; color: var(--dim); margin-top: 10px; }
+.tile.on { background: #3a3220; }
+.tile.on .state { color: var(--on); }
+.tile.unavailable { opacity: .4; }
+
+.focusable { outline: none; transition: transform .12s ease-out, box-shadow .12s ease-out; }
+.focused { transform: scale(1.05); box-shadow: 0 0 0 5px var(--focus), 0 18px 40px rgba(0, 0, 0, .6); position: relative; z-index: 2; }
+
+.full { position: fixed; left: 0; top: 0; width: 1920px; height: 1080px; background: #000; z-index: 10; }
+.full img { width: 100%; height: 100%; object-fit: contain; }
+#full-name { position: absolute; left: 60px; top: 40px; font-size: 40px; text-shadow: 0 2px 8px #000; }
+.toast { position: fixed; left: 50%; bottom: 90px; transform: translateX(-50%); background: var(--panel);
+  border-radius: 20px; padding: 22px 36px; font-size: 28px; z-index: 20; box-shadow: 0 10px 40px rgba(0, 0, 0, .6); }
+.hidden { display: none; }
+footer { position: fixed; left: 72px; bottom: 22px; font-size: 22px; color: var(--dim); }

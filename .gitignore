@@ -24,3 +24,11 @@ homeassistant/frigate/model_cache/
 homeassistant/mosquitto/data/
 homeassistant/mosquitto/log/
 homeassistant/mosquitto/passwd
+
+# Samsung TV: remote token, the app's config (Home Assistant token), builds and signing
+tv/samsung/.token
+tv/samsung/venv/
+tv/samsung/app/config.js
+tv/samsung/app/.buildResult/
+*.wgt
+*.p12
